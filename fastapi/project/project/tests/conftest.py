@@ -4,8 +4,8 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database
 
-from ..apps.database.orm import Base
-from ..apps.main import app
+from ..apps.database.orm import Base, metadata
+from ..main import app
 
 
 @pytest.fixture(scope="session")
@@ -15,11 +15,12 @@ def test_db():
         create_database(test_db_url)
 
     engine = create_engine(test_db_url)
-    Base.metadata.create_all(engine)
+    # Base.metadata.create_all(engine)
+    metadata.create_all(engine)
     try:
         yield engine
     finally:
-        Base.metadata.drop_all(engine)
+        metadata.drop_all(engine)
 
 
 @pytest.fixture(scope="function")
@@ -29,7 +30,7 @@ def test_session(test_db):
     trans = connection.begin()
     session = sessionmaker()(bind=connection)
 
-    session.begin_nested()  # SAVEPOINT
+    session.begin_nested()
 
     @event.listens_for(session, "after_transaction_end")
     def restart_savepoint(session, transaction):
@@ -42,7 +43,7 @@ def test_session(test_db):
     yield session
 
     session.close()
-    trans.rollback()  # roll back to the SAVEPOINT
+    trans.rollback()
     connection.close()
 
 

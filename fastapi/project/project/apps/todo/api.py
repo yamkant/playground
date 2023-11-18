@@ -5,15 +5,17 @@ from apps.todo import schema
 
 router = APIRouter(prefix="/todos")
 
-@router.get("/")
+@router.get("/", response_model=list[schema.TodoSchema])
 def get_todos(
     skip: int = 0,
     limit: int = 10,
     db: Session = Depends(connection.get_db),
 ):
-    return db.query(orm.Todo).offset(skip).limit(limit).all()
+    _todo_list = db.query(orm.Todo).offset(skip).limit(limit).all()
+    print(_todo_list)
+    return _todo_list
 
-@router.post("/")
+@router.post("/", response_model=schema.TodoSchema)
 async def create_todos(
     todo: schema.CreateTodoRequest = Body(),
     db: Session = Depends(connection.get_db),

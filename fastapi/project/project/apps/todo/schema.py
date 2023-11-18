@@ -9,13 +9,7 @@ class CreateTodoRequest(BaseModel):
 class TodoSchema(BaseModel):
     id: int
     content: str
-    is_complete: str
+    is_completed: str
 
     class Config:
         orm_mode = True
-
-class TodoListSchema(BaseResponse):
-    result: List[TodoSchema]
-
-class TodoCreateResponse(BaseResponse):
-    result: TodoSchema

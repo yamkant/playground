@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from apps.todo.schema import TodoListSchema
+from apps.todo.schema import TodoSchema
 
 class UserBase(BaseModel):
     email: str
@@ -10,7 +10,7 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
-    todos: TodoListSchema = []
+    todos: list[TodoSchema] = []
 
     class Config:
         orm_mode = True

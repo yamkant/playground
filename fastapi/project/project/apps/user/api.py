@@ -6,7 +6,7 @@ from apps.database import orm, connection
 router = APIRouter(prefix="/users")
 
 @router.get("/")
-def read_users(
+def get_users(
     skip: int = 0,
     limit: int = 100,
     db: Session = Depends(connection.get_db),
@@ -16,7 +16,7 @@ def read_users(
 
 
 @router.post("/")
-def create_user(
+def post_users(
     user: schema.UserCreate,
     db: Session = Depends(connection.get_db),
 ):

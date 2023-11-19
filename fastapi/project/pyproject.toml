@@ -13,6 +13,10 @@ sqlalchemy = "^2.0.23"
 pytest = "^7.4.3"
 httpx = "^0.25.1"
 sqlalchemy-utils = "^0.41.1"
+passlib = "^1.7.4"
+python-multipart = "^0.0.6"
+fastapi-jwt = "^0.2.0"
+bcrypt = "^4.0.1"
 
 
 [build-system]

@@ -7,6 +7,9 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     password: str
 
+class LoginUser(UserBase):
+    password: str
+
 class User(UserBase):
     id: int
     is_active: bool
@@ -14,3 +17,8 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+class Token(UserBase):
+    access_token: str
+    token_type: str
+    email: str

@@ -12,7 +12,6 @@ TEST_DATABASE_URL = "sqlite:///./test.db"
 
 @pytest.fixture(scope="session")
 def test_db():
-    print("데이터베이스 연결 실행 1")
     test_db_url = TEST_DATABASE_URL
     if not database_exists(test_db_url):
         create_database(test_db_url)
@@ -29,7 +28,6 @@ def test_db():
 
 @pytest.fixture(scope="function")
 def test_session(test_db):
-    print("데이터베이스 연결 실행 2")
     connection = test_db.connect()
 
     trans = connection.begin()

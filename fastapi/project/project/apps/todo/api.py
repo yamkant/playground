@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
-from apps.database import orm, connection
-from apps.todo import schema, repository
+from database import orm, connection
+from todo import schema, repository
 
 router = APIRouter(prefix="/todos")
 

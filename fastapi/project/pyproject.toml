@@ -17,6 +17,7 @@ passlib = "^1.7.4"
 python-multipart = "^0.0.6"
 fastapi-jwt = "^0.2.0"
 bcrypt = "^4.0.1"
+pytest-mock = "^3.12.0"
 
 
 [build-system]

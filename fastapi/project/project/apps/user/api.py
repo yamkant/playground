@@ -5,9 +5,8 @@ from sqlalchemy.orm import Session
 from starlette import status
 from jose import jwt
 
-from apps.user import repository, schema
-from apps.user.repository import pwd_context
-from apps.database import orm, connection
+from user import repository, schema
+from database import orm, connection
 
 router = APIRouter(prefix="/users")
 
@@ -49,7 +48,7 @@ def login_for_access_token(
 
     # check user and password
     user = repository.get_user_by_email(db, login_user.email)
-    if not user or not pwd_context.verify(login_user.password, user.hashed_password):
+    if not user or not repository.pwd_context.verify(login_user.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",

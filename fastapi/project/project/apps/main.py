@@ -1,15 +1,17 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from apps.user.api import router as user_router
-from apps.todo.api import router as todo_router
+from user.api import router as user_router
+from todo.api import router as todo_router
 
-from apps.database.connection import SessionLocal, engine
-from apps.database.orm import Base
+from database.connection import engine, get_db
+from database.orm import Base
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+get_db = get_db
 
 origins = [
     "http://127.0.0.1:5173",

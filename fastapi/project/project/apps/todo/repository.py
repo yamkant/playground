@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from apps.database import orm
-from apps.user import schema
+from database import orm
+from user import schema
 
 def get_todo_list(
     db: Session,
